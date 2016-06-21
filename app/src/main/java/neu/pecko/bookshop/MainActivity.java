@@ -39,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
     // Create Inner Class แสดงข้อมุลออกมาบางส่วน
     private class MySynchronize extends AsyncTask<Void, Void, String> { // alt + Enter
 
-        private Context contex;
+        private Context context;
         private String urlString;
         private boolean statusBoonlean = true;
         private String truePasswordString;
+        private String nameLoginString;
 
-        public MySynchronize(Context contex, String urlString) {
-            this.contex = contex;
+        public MySynchronize(Context context, String urlString) {
+            this.context = context;
             this.urlString = urlString;
         }
 
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     if (userString.equals(jsonObject.getString("User"))) {
                         statusBoonlean = false;
                         truePasswordString = jsonObject.getString("Password");
+                        nameLoginString = jsonObject.getString("Name");
                     } // if
 
                 } // for
@@ -89,16 +91,21 @@ public class MainActivity extends AppCompatActivity {
                 // checkUser
                 if (statusBoonlean) {
                     MyAlert myAlert = new MyAlert();
-                    myAlert.myDialog(contex, "ไม่มี User นี้นะจ๊ะ",
+                    myAlert.myDialog(context, "ไม่มี User นี้นะจ๊ะ",
                             "ไม่มียูสเซอร์ " + userString + " ในฐานข้อมูลเราจ้า");
                 } else if (passwordString.equals(truePasswordString)) {
                     // Password True
-                    Toast.makeText(contex, "Welcome User: " + userString, Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(context, BookActivity.class);
+                    intent.putExtra("Name", nameLoginString);
+                    startActivity(intent);
+
+                    Toast.makeText(context, "Welcome User: " + userString, Toast.LENGTH_LONG).show();
 
                 } else {
                     // Password False
                     MyAlert myAlert = new MyAlert();
-                    myAlert.myDialog(contex, "Password ไม่ถูกจ้า", "ลองใส่พาสเวิร์ดใหม่นะ");
+                    myAlert.myDialog(context, "Password ไม่ถูกจ้า", "ลองใส่พาสเวิร์ดใหม่นะ");
                 }
 
 
