@@ -52,7 +52,7 @@ public class BookApapter extends BaseAdapter{ // alt + Enter
         View view1 = layoutInflater.inflate(R.layout.book_listview, viewGroup, false);
 
         ImageView imageView = (ImageView) view1.findViewById(R.id.imageView2); // ต้องใส่ ; ก่อนแล้ว alt + Enter
-        Picasso.with(context).load(iconStrings).resize(150,180).into(imageView);
+        Picasso.with(context).load(iconStrings[i]).resize(150,180).into(imageView);
 
         TextView nameTextView = (TextView) view1.findViewById(R.id.textView7);
         nameTextView.setText(nameStrings[i]);
